@@ -1,0 +1,26 @@
+service: softtek-rest
+
+frameworkVersion: "3"
+
+plugins:
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+
+functions:
+  submit:
+    handler: putPeople.submit
+    events:
+      - http:
+          path: /post
+          method: post
+  getPeople:
+    handler: getPeople.getPeople
+    events:
+      - http:
+          path: /get/{id}
+          method: get
